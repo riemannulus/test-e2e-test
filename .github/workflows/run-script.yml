@@ -1,0 +1,29 @@
+name: Download and install E2E test
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  build:
+
+    runs-on: windows-2019
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Download Game
+      uses: carlosperate/download-file-action@v1.0.3
+      id: download-game
+      with:
+        file-url: "http://download.nine-chronicles.com/NineChroniclesInstaller.exe"
+    - name: Run Script
+      run: |
+        python main.py

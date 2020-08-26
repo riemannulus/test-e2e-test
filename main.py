@@ -1,4 +1,3 @@
-import re
 import time
 from os import popen
 
@@ -34,22 +33,24 @@ if __name__ == '__main__':
     pid = start_process()
     app = application.Application(backend='uia').connect(process=pid)
     a = app.window(class_name='TWizardForm')
-    try:
+
+    a["Next >"].click()
+    print("Click Next")
+    if has_identifier(a, "Next >"):
         a["Next >"].click()
-        if has_identifier(a, "Next >"):
-            a["Next >"].click()
-        a["Install"].click()
+        print("Click Next")
+    a["Install"].click()
+    print("Click Install")
 
-        count = 0
+    count = 0
 
-        while count < 10:
-            count += 1
-            if has_identifier(a, "Finish"):
-                a["Finish"].click()
-            else:
-                time.sleep(5)
+    while count < 10:
+        count += 1
+        if has_identifier(a, "Finish"):
+            a["Finish"].click()
+            print("Click Finish")
+        else:
+            time.sleep(5)
 
-        if count >= 10:
-            raise Exception('Cannot installed in 50 second.')
-    except Exception as e:
-        print(e)
+    if count >= 10:
+        raise Exception('Cannot installed in 50 second.')
