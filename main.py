@@ -34,6 +34,7 @@ if __name__ == '__main__':
     app = application.Application(backend='uia').connect(process=pid)
     a = app.window(class_name='TWizardForm')
 
+    a.print_control_identifiers()
     a["Next >"].click()
     print("Click Next")
     if has_identifier(a, "Next >"):
@@ -45,12 +46,13 @@ if __name__ == '__main__':
     count = 0
 
     while count < 20:
-        count += 1
         if has_identifier(a, "Finish"):
             a["Finish"].click()
             print("Click Finish")
+            break;
         else:
+            count += 1
             time.sleep(5)
 
-    if count >= 10:
+    if count >= 20:
         raise Exception('Cannot installed in 100 second.')
