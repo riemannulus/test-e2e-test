@@ -44,7 +44,7 @@ if __name__ == '__main__':
 
     count = 0
 
-    while count < 10:
+    while count < 20:
         count += 1
         if has_identifier(a, "Finish"):
             a["Finish"].click()
@@ -53,4 +53,4 @@ if __name__ == '__main__':
             time.sleep(5)
 
     if count >= 10:
-        raise Exception('Cannot installed in 50 second.')
+        raise Exception('Cannot installed in 100 second.')
